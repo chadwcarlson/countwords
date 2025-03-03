@@ -1,0 +1,42 @@
+name: Count words in all Markdown files
+
+description: Action for counting words in all Markdown files within a given repository.
+
+inputs:
+  root_dir:
+    description: 'Root repo where results are saved and shared from.'
+    required: true
+  courses_dir:
+    description: 'Directory of interest where we will count words in all Markdown files.'
+    required: true
+  python_version:
+    description: 'Python version to use for running the script.'
+    required: false
+    default: '3.13'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ inputs.python_version }}
+
+    - name: Count words in Markdown files
+      shell: bash
+      run: |
+        echo "::notice::Running count-words python script directly from workflow job 'main'..."
+        python .github/actions/count-words/wc.py $GITHUB_BASE_REF $GITHUB_REPOSITORY $GITHUB_SHA $GITHUB_REF_NAME ${{ inputs.root_dir  }} ${{ inputs.courses_dir  }}
+        echo "::notice::Finished. Results are saved in 'results.md'."
+        
+    - name: Upload results to Step Summary
+      shell: bash
+      run: |
+        echo "::notice::Pushing results to Step Summary..."
+        cat results.md >> $GITHUB_STEP_SUMMARY
+        echo "::notice::Finished. Results are available in the Step Summary."
+
