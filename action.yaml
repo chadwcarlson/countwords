@@ -32,7 +32,7 @@ runs:
         echo "::notice::Running count-words python script directly from workflow job 'main'..."
         python .github/actions/count-words/wc.py ${{ inputs.root_dir  }} ${{ inputs.courses_dir  }}
         echo "::notice::Finished. Results are saved in 'results.md'."
-        
+
     - name: Upload results to Step Summary
       shell: bash
       run: |
@@ -40,3 +40,12 @@ runs:
         cat results.md >> $GITHUB_STEP_SUMMARY
         echo "::notice::Finished. Results are available in the Step Summary."
 
+    - name: Get job URL and total WC
+      shell: bash
+      run: |
+        echo "::notice::Grabbing job URL."
+        URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/attempts/$GITHUB_RUN_ATTEMPT
+        echo "::notice::Finished. Job Step Summary is available at $URL"
+        echo "::notice::Toal wordcount: $(cat totals.txt)"
+        echo "{url}={$URL}" >> $GITHUB_OUTPUT
+        echo "{wordcount}=$(cat totals.txt)" >> $GITHUB_OUTPUT

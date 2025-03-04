@@ -14,6 +14,7 @@ ROOT_DIR=sys.argv[1]
 COURSES_DIR=sys.argv[2]
 COURSES_PATH = os.path.join(ROOT_DIR, COURSES_DIR)
 RESULTS_FILE = os.path.join(ROOT_DIR, 'results.md')
+TOTALS_FILE = os.path.join(ROOT_DIR, 'totals.txt')
 
 def read_file(file_path):
     """Read the contents of a file.
@@ -140,6 +141,9 @@ Total word count [^1]
 """
 
         f.write(results)
+
+    with open(TOTALS_FILE, "w") as f:
+        f.write(str(total_wc))
 
 if __name__ == '__main__':
     get_wc_in_repo(COURSES_PATH, CURRENT_BRANCH)
