@@ -30,7 +30,7 @@ runs:
       shell: bash
       run: |
         echo "::notice::Running count-words python script directly from workflow job 'main'..."
-        python .github/actions/count-words/wc.py $GITHUB_BASE_REF $GITHUB_REPOSITORY $GITHUB_SHA $GITHUB_REF_NAME ${{ inputs.root_dir  }} ${{ inputs.courses_dir  }}
+        python .github/actions/count-words/wc.py ${{ inputs.root_dir  }} ${{ inputs.courses_dir  }}
         echo "::notice::Finished. Results are saved in 'results.md'."
         
     - name: Upload results to Step Summary
