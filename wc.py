@@ -122,9 +122,8 @@ def get_wc_in_repo(directory, current_branch):
         results = f"""
 ## Word Count Results (`{current_branch}`)
 
-Total word count [^1]
-
-**{total_wc}**
+> [!IMPORTANT]  
+> There are **{total_wc}** words in the markdown files on this PR. [^1]
 
 ### Word count by file
 
@@ -137,7 +136,7 @@ Total word count [^1]
 
         results += f"""| **Total** | **{total_wc}** |
         
-[^1]: Word count as of current commit ([{CURRENT_SHA[:7]}](https://github.com/{CURRENT_REPO}/tree/{CURRENT_SHA})) on the [`branch_name`](https://github.com/{CURRENT_REPO}/tree/{CURRENT_BRANCH}) branch, triggered as a part of pull request [#44](https://github.com/{CURRENT_REPO}/pull/{CURRENT_PR.split("/")[0]}).
+[^1]: Word count as of current commit ([{CURRENT_SHA[:7]}](https://github.com/{CURRENT_REPO}/tree/{CURRENT_SHA})) on the [`{CURRENT_BRANCH}`](https://github.com/{CURRENT_REPO}/tree/{CURRENT_BRANCH}) branch, triggered as a part of pull request [#{CURRENT_PR.split("/")[0]}](https://github.com/{CURRENT_REPO}/pull/{CURRENT_PR.split("/")[0]}).
 """
 
         f.write(results)
