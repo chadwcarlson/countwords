@@ -46,6 +46,6 @@ runs:
         echo "::notice::Grabbing job URL."
         URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/attempts/$GITHUB_RUN_ATTEMPT
         echo "::notice::Finished. Job Step Summary is available at $URL"
-        echo "::notice::Toal wordcount: $(cat totals.txt)"
+        echo "::notice::Total wordcount: $(cat totals.txt)"
         echo "{url}={$URL}" >> $GITHUB_OUTPUT
         echo "{wordcount}=$(cat totals.txt)" >> $GITHUB_OUTPUT
