@@ -4,14 +4,14 @@ from collections import Counter
 from string import punctuation
 
 # Get environment details from the GitHub Actions runner passed as arguments.
-CURRENT_BRANCH=sys.argv[1]
-CURRENT_REPO=sys.argv[2]
-CURRENT_SHA=sys.argv[3]
-CURRENT_PR=sys.argv[4]
+CURRENT_BRANCH=os.environ['GITHUB_BASE_REF']
+CURRENT_REPO=os.environ['GITHUB_REPOSITORY']
+CURRENT_SHA=os.environ['GITHUB_SHA']
+CURRENT_PR=os.environ['GITHUB_REF_NAME']
 
 # Define relevant paths from passed arguments.
-ROOT_DIR=sys.argv[5]
-COURSES_DIR=sys.argv[6]
+ROOT_DIR=sys.argv[1]
+COURSES_DIR=sys.argv[2]
 COURSES_PATH = os.path.join(ROOT_DIR, COURSES_DIR)
 RESULTS_FILE = os.path.join(ROOT_DIR, 'results.md')
 
